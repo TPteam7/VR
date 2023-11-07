@@ -4,91 +4,114 @@ using UnityEngine;
 
 public class Balance : MonoBehaviour
 {
-    public float balanceTime = 3f; // Time in seconds to complete the rotation
-    public float slowdownRate = 5.0f; // Adjust this value to control the slowdown rate
     private float elapsedTime = 0f;
+    private float collidedTime = 0f;
     private bool isRotating = false;
     private bool slow = false;
-    private Rigidbody rb;
-    public float rotationSpeed = 90.0f; // Adjust the initial rotation speed as needed
-    private float targetZRotation = 0.0f;
+    private bool done = false;
+    private bool correctObject = false;
+    private GameObject droppedObj;
+    private bool collided = false;
+
 
     private void Start()
     {
-        rb = GetComponent<Rigidbody>(); // Get the Rigidbody component
+        done = false;
+        correctObject = false;
+        elapsedTime = 0;
+        isRotating = false;
+        slow = false;
+        collided = false;
+
     }
 
     private void Update()
     {
         elapsedTime += Time.deltaTime;
         //Debug.Log("Time: " + elapsedTime);
-        if (isRotating)
+        if(collided)
         {
-            
-            if (elapsedTime >= balanceTime)
-            {
-                isRotating = false;
-                slow = true;
-            }
+            collidedTime += Time.deltaTime;
         }
-        if (slow)
+        if (isRotating)
+        {   
+            isRotating = false;
+            slow = true;
+        }
+        if (slow && !done)
         {
             SlowDown();
         }
-    }
-
-     private void FreezeObjectsWithTag(string tag)
-    {
-        GameObject[] objectsToFreeze = GameObject.FindGameObjectsWithTag(tag);
-
-        foreach (GameObject obj in objectsToFreeze)
+        // Check if 5 seconds have passed and stop everything
+        if (collidedTime >= 5.0f)
         {
-            Rigidbody rb = obj.GetComponent<Rigidbody>();
-
-            if (rb != null)
-            {
-                rb.constraints = RigidbodyConstraints.FreezeAll; // This freezes position and rotation.
-            }
-            else
-            {
-                // If an object doesn't have a Rigidbody, you can still freeze its rotation.
-                obj.transform.rotation = Quaternion.identity;
-            }
+            CheckBalance();
         }
     }
+
+    private void FreezeObjectsWithTag(string tag)
+{
+    GameObject[] objectsToFreeze = GameObject.FindGameObjectsWithTag(tag);
+
+    foreach (GameObject obj in objectsToFreeze)
+    {
+        Rigidbody rb = obj.GetComponent<Rigidbody>();
+
+        if (rb != null)
+        {
+            // Freeze rotation along the Z-axis (for example)
+            rb.constraints = RigidbodyConstraints.FreezeRotationZ;
+            rb.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezePositionZ |
+                RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
+
+
+            // Reset the rotation to (0, 0, 0)
+            //obj.transform.rotation = Quaternion.identity;
+            
+        }
+    }
+}
+
 
     private void SlowDown()
+{
+    // Calculate the current Z rotation of the object
+    float currentZRotation = transform.eulerAngles.z;
+    Debug.Log("Z rotate: " + currentZRotation);
+
+    if (!done && Mathf.Abs(currentZRotation) <= 1) 
     {
-        //Debug.Log("Slowing Down");
-        if (elapsedTime - balanceTime >= 2f) // Wait for 2 second after the balanceTime
-        {
-            // Calculate the current Z rotation of the object
-            float currentZRotation = transform.eulerAngles.z;
+        // If the Z rotation is close to 0, set it to 0
+        Vector3 newRotation = transform.rotation.eulerAngles;
+        newRotation.z = 0f;
+        transform.rotation = Quaternion.Euler(newRotation);
+        FreezeObjectsWithTag("plank");
+        Debug.Log("get out");
+        done = true;
+    }
 
-            // Calculate the step size based on the rotation speed and time
-            float step = rotationSpeed * Time.deltaTime;
+}
 
-            // Rotate towards the target rotation
-            transform.eulerAngles = new Vector3(transform.eulerAngles.x, 
-            transform.eulerAngles.y, Mathf.MoveTowardsAngle(currentZRotation, targetZRotation, step));
-        }
-        if (elapsedTime - balanceTime >= 3.5f) // Wait for 4 second after the balanceTime
-        {
-            // Set the Z rotation to 0
-            Vector3 newRotation = transform.rotation.eulerAngles;
-            newRotation.z = 0f;
-            transform.rotation = Quaternion.Euler(newRotation);
-            FreezeObjectsWithTag("TestingObjects");
-            FreezeObjectsWithTag("CubeOnPlank");
-        }
+    private void CheckBalance()
+    {
+        float zRotation = transform.eulerAngles.z;
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("TestingObjects"))
+        
+        if (collision.gameObject.CompareTag("CorrectObject"))
         {
+            collided = true;
             isRotating = true;
-            //Debug.Log("Hit, starting timer");
+            correctObject = true;
+            
+            Debug.Log("Hit, starting timer");
+        }
+        else if (collision.gameObject.CompareTag("TestingObjects"))
+        {
+            collided = true;
+            droppedObj  = collision.gameObject;
         }
     }
 }
