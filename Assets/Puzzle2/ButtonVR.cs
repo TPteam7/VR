@@ -22,7 +22,7 @@ public class ButtonVR : MonoBehaviour
     {
         if (!isPressed)
         {
-            Button.transform.localPosition = new Vector3(0, 0.003f, 0);
+            Button.transform.localPosition -= new Vector3(0, 0.012f, 0);
             presser = other.gameObject; // Corrected property name
             onPress.Invoke();
             isPressed = true;
@@ -33,7 +33,7 @@ public class ButtonVR : MonoBehaviour
     {
         if (other.gameObject == presser) // Corrected property name
         {
-            Button.transform.localPosition = new Vector3(0, 0.015f, 0);
+            Button.transform.localPosition += new Vector3(0, 0.012f, 0);
             onRelease.Invoke();
             isPressed = false;
         }
