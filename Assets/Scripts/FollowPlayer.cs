@@ -7,7 +7,7 @@ public class FollowPlayer : MonoBehaviour
 {
     public GameObject Player;
     public float TargetDistance;
-    public float AllowedDistance = 5;
+    public float AllowedDistance = 10;
     public GameObject Penguin;
     public float FollowSpeed;
     public RaycastHit Shot;
