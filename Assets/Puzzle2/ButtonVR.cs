@@ -5,17 +5,32 @@ using UnityEngine.Events;
 
 public class ButtonVR : MonoBehaviour
 {
+    //Button pushing
     public GameObject Button;
     public UnityEvent onPress;
     public Material pngMaterial;
+    public GameObject whiteboard; // Assign your whiteboard object here
     public UnityEvent onRelease;
     GameObject presser;
     bool isPressed;
+
+    //Ball movement
+    public Rigidbody rb;
+    public float forceStrength;
+    public Collider Target; // Assign your trigger zone here
+    private bool isStopped;
+    private float stopTime;
+    public float stopDuration = 5.0f;
 
     // Start is called before the first frame update
     void Start()
     {
         isPressed = false;
+
+        //Ball movement
+        rb = GetComponent<Rigidbody>();
+        rb.AddForce(Vector3.left * forceStrength, ForceMode.Impulse);
+        Debug.Log("Object has stopped for 5 seconds.");
     }
 
     private void OnTriggerEnter(Collider other)
@@ -42,8 +57,6 @@ public class ButtonVR : MonoBehaviour
     // Function to apply PNG material to a different cube
     private void ApplyPNGMaterialToCube()
     {
-        GameObject whiteboard = GameObject.Find("Whiteboard");
-
         if (whiteboard != null)
         {
             Renderer renderer = whiteboard.GetComponent<Renderer>();
@@ -61,6 +74,34 @@ public class ButtonVR : MonoBehaviour
         else
         {
             Debug.LogError("whiteboard not found in the scene.");
+        }
+    }
+
+    void Update()
+    {
+        // Check if the object is within the trigger zone
+        if (Target.bounds.Contains(transform.position))
+        {
+            // If it's in the zone, start or continue timing
+            if (!isStopped)
+            {
+                isStopped = true;
+                stopTime = Time.time;
+            }
+            else
+            {
+                // If it has been in the zone for the specified duration, trigger your event
+                if (Time.time - stopTime >= stopDuration)
+                {
+                    // Add your event code here
+                    Debug.Log("Object has stopped for 5 seconds.");
+                }
+            }
+        }
+        else
+        {
+            // If it's not in the zone, reset the timing
+            isStopped = false;
         }
     }
 }
