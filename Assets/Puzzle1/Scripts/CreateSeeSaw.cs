@@ -11,9 +11,9 @@ public class CreateSeeSaw : MonoBehaviour
     {
         currentPrefab = Instantiate(prefab, transform.position, Quaternion.identity);
     }
-    void Update()
+    public void SetTypeFromIndex(int index)
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (index == 4)
         {
             if (currentPrefab != null)
             {

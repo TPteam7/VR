@@ -12,25 +12,26 @@ public class SpawnerScript : MonoBehaviour
     private GameObject currentObject;
     private bool chosen = false;
 
-    void Update()
+    public void SetTypeFromIndex(int index)
     {
         if(!chosen)
         {
-            if (Input.GetKeyDown(KeyCode.Alpha1))
+            if (index == 1)
             {
+                Debug.Log("Hit ball 1");
                 // Spawn the first prefab when the "1" key is pressed
                 chosenObject = prefab1; 
                 Invoke("SpawnObject", 1.0f); 
                 chosen = true; 
             }
-            else if (Input.GetKeyDown(KeyCode.Alpha2))
+            else if (index == 2)
             {
                 // Spawn the first prefab when the "1" key is pressed
                 chosenObject = prefab2; 
                 Invoke("SpawnObject", 1.0f); 
                 chosen = true; 
             }
-            else if (Input.GetKeyDown(KeyCode.Alpha3))
+            else if (index == 3)
             {
                 // Spawn the first prefab when the "1" key is pressed
                 chosenObject = prefab3; 
@@ -38,7 +39,7 @@ public class SpawnerScript : MonoBehaviour
                 chosen = true; 
             }
         }
-        else if (Input.GetKeyDown(KeyCode.Space))
+        else if (index == 4)
         {
             if(currentObject != null)
             {
