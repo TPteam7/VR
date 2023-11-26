@@ -13,7 +13,7 @@ public class CreateSeeSaw : MonoBehaviour
     }
     public void SetTypeFromIndex(int index)
     {
-        if (index == 4)
+        if (index > 0 && index < 4)
         {
             if (currentPrefab != null)
             {

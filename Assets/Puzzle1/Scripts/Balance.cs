@@ -77,7 +77,7 @@ public class Balance : MonoBehaviour
     float currentZRotation = transform.eulerAngles.z;
     Debug.Log("Z rotate: " + currentZRotation);
 
-    if (!done && Mathf.Abs(currentZRotation) <= 1) 
+    if (!done && (Mathf.Abs(currentZRotation) <= 2 || Mathf.Abs(currentZRotation) >= 358)) 
     {
         // If the Z rotation is close to 0, set it to 0
         Vector3 newRotation = transform.rotation.eulerAngles;

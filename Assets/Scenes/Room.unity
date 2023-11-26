@@ -24321,8 +24321,6 @@ MonoBehaviour:
       m_Image: {fileID: 0}
     - m_Text: Ball 3
       m_Image: {fileID: 0}
-    - m_Text: Reset
-      m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -28150,7 +28148,11 @@ PrefabInstance:
     - target: {fileID: 4916081831217972923, guid: 696b4bdd531234d42849bf14ee396566, type: 3}
       propertyPath: prefab2
       value: 
-      objectReference: {fileID: 8880062991288247251, guid: e857f0b4efb784e42ac0c409b980e5f1, type: 3}
+      objectReference: {fileID: 807157099389866167, guid: c9a985e88697886439e39b2e4d6773dc, type: 3}
+    - target: {fileID: 4916081831217972923, guid: 696b4bdd531234d42849bf14ee396566, type: 3}
+      propertyPath: prefab3
+      value: 
+      objectReference: {fileID: 807157099389866167, guid: f8b86eb2ea16390448924cdc0817fb91, type: 3}
     - target: {fileID: 6320338061288294498, guid: 696b4bdd531234d42849bf14ee396566, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.3

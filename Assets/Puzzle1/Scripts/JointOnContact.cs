@@ -9,7 +9,7 @@ public class JointOnContacts : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         // Check if the collision is with the specific object you want to connect with.
-        if (collision.gameObject.CompareTag("plank") && !jointCreated)
+        if (collision.gameObject.CompareTag("plank"))
         {
             Rigidbody targetRigidbody = collision.rigidbody;
             if (targetRigidbody != null)
