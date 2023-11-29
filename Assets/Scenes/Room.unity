@@ -10716,6 +10716,9 @@ MonoBehaviour:
   FollowSpeed: 0
   MaxRaycastDistance: 20
   StopDistance: 2
+  walkClip: {fileID: 0}
+  runClip: {fileID: 0}
+  idleClip: {fileID: 0}
 --- !u!1001 &786760845
 PrefabInstance:
   m_ObjectHideFlags: 0

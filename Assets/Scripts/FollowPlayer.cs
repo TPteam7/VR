@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class FollowPlayer : MonoBehaviour
 {
-    private Animator animator;
+    private Animation animator;
     public GameObject Player;
     public float AllowedDistance;
     public GameObject Penguin;
@@ -13,12 +13,20 @@ public class FollowPlayer : MonoBehaviour
     public RaycastHit Shot;
     public float MaxRaycastDistance = 20;
     public float StopDistance = 2.0f;
+    public AnimationClip walkClip;
+    public AnimationClip runClip;
+    public AnimationClip idleClip;
 
     private void Start()
     {
         // Get the Animator component attached to the GameObject
-        animator = GetComponent<Animator>();
-        animator.SetTrigger("idle");
+        animator = GetComponent<Animation>();
+
+        walkClip = animator.GetClip("walk");
+        runClip = animator.GetClip("run");
+        idleClip = animator.GetClip("idle");
+        animator.Play("idle");
+
     }
 
     // Update is called once per frame
@@ -43,11 +51,12 @@ public class FollowPlayer : MonoBehaviour
             if (distanceToPlayer <= StopDistance)
             {
                 FollowSpeed = 0f;
+                animator.Play("idle");
             }
             else
             {
                 FollowSpeed = 0.02f;
-                animator.SetTrigger("walk");
+                animator.Play("walk");
             }
         }
     }
