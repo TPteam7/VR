@@ -9,11 +9,13 @@ public class VelocitySelectList : MonoBehaviour
     public float velocity2 = 10f;
     public float velocity3 = 15f;
 
-    public void SetVelocityFromIndex(int index)
+    public void SetTypeFromIndex(int index)
     {
+        Debug.Log(index);
         switch (index)
         {
             case 1:
+                Debug.Log("CASE 1");
                 rb = GetComponent<Rigidbody>();
                 rb.AddForce(Vector3.left * velocity1, ForceMode.Impulse);
                 break;
