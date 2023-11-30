@@ -11,6 +11,9 @@ public class Balance : MonoBehaviour
     private bool done = false;
     private GameObject droppedObj;
     private bool collided = false;
+    bool ready = false;
+    float prevZ = 0;
+
 
 
     private void Start()
@@ -30,6 +33,7 @@ public class Balance : MonoBehaviour
         if(collided)
         {
             collidedTime += Time.deltaTime;
+            prevZ = transform.eulerAngles.z;
         }
         if (isRotating)
         {   
@@ -38,7 +42,9 @@ public class Balance : MonoBehaviour
         }
         if (slow && !done)
         {
+            
             SlowDown();
+            Debug.Log("Slowing Down");
         }
         // Check if 5 seconds have passed and stop everything
         if (collidedTime >= 5.0f)
@@ -48,62 +54,65 @@ public class Balance : MonoBehaviour
     }
 
     private void FreezeObjectsWithTag(string tag)
-{
-    GameObject[] objectsToFreeze = GameObject.FindGameObjectsWithTag(tag);
-
-    foreach (GameObject obj in objectsToFreeze)
     {
-        Rigidbody rb = obj.GetComponent<Rigidbody>();
+        GameObject[] objectsToFreeze = GameObject.FindGameObjectsWithTag(tag);
 
-        if (rb != null)
+        foreach (GameObject obj in objectsToFreeze)
         {
-            // Freeze rotation along the Z-axis (for example)
-            rb.constraints = RigidbodyConstraints.FreezeRotationZ;
-            rb.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezePositionZ |
-                RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
+            Rigidbody rb = obj.GetComponent<Rigidbody>();
+
+            if (rb != null)
+            {
+                // Freeze rotation along the Z-axis (for example)
+                rb.constraints = RigidbodyConstraints.FreezeRotationZ;
+                rb.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezePositionZ |
+                    RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
 
 
-            // Reset the rotation to (0, 0, 0)
-            //obj.transform.rotation = Quaternion.identity;
-            
+                // Reset the rotation to (0, 0, 0)
+                //obj.transform.rotation = Quaternion.identity;
+                Debug.Log("Right Object-> Starting to freeze");
+            }
         }
     }
-}
 
 
-    private void SlowDown()
-{
-    // Calculate the current Z rotation of the object
-    float currentZRotation = transform.eulerAngles.z;
-    Debug.Log("Z rotate: " + currentZRotation);
-
-    if (!done && (Mathf.Abs(currentZRotation) <= 2 || Mathf.Abs(currentZRotation) >= 358)) 
+        private void SlowDown()
     {
-        // If the Z rotation is close to 0, set it to 0
-        Vector3 newRotation = transform.rotation.eulerAngles;
-        newRotation.z = 0f;
-        transform.rotation = Quaternion.Euler(newRotation);
-        FreezeObjectsWithTag("plank");
-        Debug.Log("get out");
-        done = true;
-    }
+        // Calculate the current Z rotation of the object
+        float currentZRotation = transform.eulerAngles.z;
 
-}
+        Debug.Log("current: " +currentZRotation);
+        Debug.Log("prev: " + prevZ );
+
+ 
+        if(!ready &&  Mathf.Abs(currentZRotation) >= 2 && Mathf.Abs(currentZRotation) <= 10 )
+        {
+            ready = true;
+        }
+        if (!done && (Mathf.Abs(currentZRotation) <= 2 || Mathf.Abs(currentZRotation) >= 358) && ready) 
+        {
+            // If the Z rotation is close to 0, set it to 0
+            Vector3 newRotation = transform.rotation.eulerAngles;
+            newRotation.z = 0f;
+            transform.rotation = Quaternion.Euler(newRotation);
+            FreezeObjectsWithTag("plank");
+            FreezeObjectsWithTag("CorrectObject");
+            done = true;
+        }
+    }
 
     private void CheckBalance()
     {
         float zRotation = transform.eulerAngles.z;
     }
-
     private void OnCollisionEnter(Collision collision)
     {
-        
+
         if (collision.gameObject.CompareTag("CorrectObject"))
         {
             collided = true;
             isRotating = true;
-            
-            Debug.Log("Hit, starting timer");
         }
     }
 }

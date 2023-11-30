@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class JointOnContacts : MonoBehaviour
 {
-    private bool jointCreated = false;
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -20,8 +19,6 @@ public class JointOnContacts : MonoBehaviour
 
                 // Optional: Configure the joint properties as needed.
                 // For example, you can set the break force or break torque.
-
-                jointCreated = true;
             }
         }
     }
