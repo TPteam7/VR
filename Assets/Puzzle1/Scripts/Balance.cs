@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class Balance : MonoBehaviour
 {
@@ -11,7 +13,8 @@ public class Balance : MonoBehaviour
     private bool done = false;
     private GameObject droppedObj;
     private bool collided = false;
-    bool ready = false;
+    private bool ready = false;
+    private bool balance = false;
     float prevZ = 0;
 
 
@@ -44,10 +47,10 @@ public class Balance : MonoBehaviour
         {
             
             SlowDown();
-            Debug.Log("Slowing Down");
+            //Debug.Log("Slowing Down");
         }
-        // Check if 5 seconds have passed and stop everything
-        if (collidedTime >= 5.0f)
+        // Check if 6 seconds have passed and stop everything
+        if (collidedTime >= 3.0f)
         {
             CheckBalance();
         }
@@ -71,7 +74,6 @@ public class Balance : MonoBehaviour
 
                 // Reset the rotation to (0, 0, 0)
                 //obj.transform.rotation = Quaternion.identity;
-                Debug.Log("Right Object-> Starting to freeze");
             }
         }
     }
@@ -82,15 +84,13 @@ public class Balance : MonoBehaviour
         // Calculate the current Z rotation of the object
         float currentZRotation = transform.eulerAngles.z;
 
-        Debug.Log("current: " +currentZRotation);
-        Debug.Log("prev: " + prevZ );
-
+        //Debug.Log("current: " +currentZRotation);
  
         if(!ready &&  Mathf.Abs(currentZRotation) >= 2 && Mathf.Abs(currentZRotation) <= 10 )
         {
             ready = true;
         }
-        if (!done && (Mathf.Abs(currentZRotation) <= 2 || Mathf.Abs(currentZRotation) >= 358) && ready) 
+        if (!done && (Mathf.Abs(currentZRotation) <= 0 || Mathf.Abs(currentZRotation) >= 358) && ready) 
         {
             // If the Z rotation is close to 0, set it to 0
             Vector3 newRotation = transform.rotation.eulerAngles;
@@ -105,13 +105,20 @@ public class Balance : MonoBehaviour
     private void CheckBalance()
     {
         float zRotation = transform.eulerAngles.z;
+
+        if (zRotation == 0)
+        {
+            balance = true; 
+        }
     }
+
     private void OnCollisionEnter(Collision collision)
     {
-
+        collided = true;
+        //Debug.Log("Should be completed");
         if (collision.gameObject.CompareTag("CorrectObject"))
         {
-            collided = true;
+            
             isRotating = true;
         }
     }
