@@ -11,11 +11,9 @@ public class VelocitySelectList : MonoBehaviour
 
     public void SetTypeFromIndex(int index)
     {
-        Debug.Log(index);
         switch (index)
         {
             case 1:
-                Debug.Log("CASE 1");
                 rb = GetComponent<Rigidbody>();
                 rb.AddForce(Vector3.left * velocity1, ForceMode.Impulse);
                 break;
