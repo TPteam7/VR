@@ -13405,7 +13405,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 6ca8f74e2369bbd4f8b48a8dcd12b3b5, type: 2}
+  - {fileID: 2100000, guid: cc757e2362b922f45a32a2f1f269a8a1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -22280,8 +22280,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1604228525}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: 0.9396927, z: -0, w: -0.3420201}
+  m_LocalPosition: {x: 3.64, y: 0.89, z: -0.86}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -22289,7 +22289,7 @@ Transform:
   - {fileID: 290037610}
   - {fileID: 435994015}
   m_Father: {fileID: 1455321398}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 220, z: 0}
 --- !u!1001 &1615267731
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -26198,7 +26198,6 @@ GameObject:
   - component: {fileID: 1877603864}
   - component: {fileID: 1877603863}
   - component: {fileID: 1877603862}
-  - component: {fileID: 1877603861}
   - component: {fileID: 1877603865}
   - component: {fileID: 1877603866}
   m_Layer: 0
@@ -26223,22 +26222,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 244453191}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1877603861
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1877603859}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5b987d4a4c7b3964aa52f150c7b85493, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rb: {fileID: 0}
-  forceStrength: 9
-  Target: {fileID: 330551830}
-  stopDuration: 5
 --- !u!135 &1877603862
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -26353,6 +26336,22 @@ MonoBehaviour:
   slider: {fileID: 1964097834}
   button: {fileID: 841296138}
   initialPosition: {x: -19.017, y: 1.395805, z: 12.513}
+  Vi1Material: {fileID: 2100000, guid: f5280789b8136b848af8a1c33512fe75, type: 2}
+  Vi2Material: {fileID: 2100000, guid: 00f4856f6783bd244b338d56ee123778, type: 2}
+  Vi3Material: {fileID: 2100000, guid: 55b326ea9a537944199574ab072dca30, type: 2}
+  Vi4Material: {fileID: 2100000, guid: 15767abffd45d5148aea7ea745216f3d, type: 2}
+  Vi5Material: {fileID: 2100000, guid: f4578840530569a4f9dc598b0e761923, type: 2}
+  Vi6Material: {fileID: 2100000, guid: d4f1fc1295e1c4a4e8465111edafb0f7, type: 2}
+  Vi7Material: {fileID: 2100000, guid: 71cc8cc67a6ce664d889d8298b626e9a, type: 2}
+  Vi8Material: {fileID: 2100000, guid: 715396c4c7d97a24eaa4508ce8ed14c3, type: 2}
+  Vi9Material: {fileID: 2100000, guid: 330bcc7961f6cdf42a8fabb4864b5189, type: 2}
+  Vi10Material: {fileID: 2100000, guid: 97575260e559e024697b36b6708c8960, type: 2}
+  Vi11Material: {fileID: 2100000, guid: e429686e69a1c7d41bc20786fa0ccfe9, type: 2}
+  Vi12Material: {fileID: 2100000, guid: 8d9b76d714738184993b812f4138c72a, type: 2}
+  Vi13Material: {fileID: 2100000, guid: eb87025467191d142b751b33ed596c62, type: 2}
+  Vi14Material: {fileID: 2100000, guid: e097e8d0e6d908249b6b39acc73a8470, type: 2}
+  Vi15Material: {fileID: 2100000, guid: 6ca8f74e2369bbd4f8b48a8dcd12b3b5, type: 2}
+  whiteboard: {fileID: 937628348}
   Target: {fileID: 330551830}
   stopDuration: 5
 --- !u!1001 &1880208367
