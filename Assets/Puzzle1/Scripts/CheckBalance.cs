@@ -9,7 +9,8 @@ public class CheckBalance : MonoBehaviour
     public Material DoneMaterial;
     public Renderer board;
     private bool right = false;
-    public GameObject keyObject;
+    public GameObject greenLight;
+    public GameObject redLight;
 
     
     // Start is called before the first frame update
@@ -39,16 +40,10 @@ public class CheckBalance : MonoBehaviour
         if(right)
         {
             renderer.material = DoneMaterial;
-            if (keyObject != null)
+            if (greenLight != null)
             {
-                keyObject.SetActive(true);
-            }
-        }
-        else{
-            renderer.material = InstructionMaterial;
-            if (keyObject != null)
-            {
-                keyObject.SetActive(false);
+                greenLight.SetActive(true);
+                redLight.SetActive(false);
             }
         }
     }

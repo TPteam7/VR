@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEditor.Rendering;
+using UnityEngine.Animations.Rigging;
 
 public class ButtonClick : MonoBehaviour
 {
@@ -10,6 +12,9 @@ public class ButtonClick : MonoBehaviour
     public Slider slider;
     public Button button;
     public Vector3 initialPosition;
+    private bool right = false;
+    public GameObject greenLight;
+    public GameObject redLight;
 
     public void SetTypeFromIndex()
     {
@@ -97,7 +102,7 @@ public class ButtonClick : MonoBehaviour
     public Collider Target; // Assign your trigger zone here
     private bool isStopped;
     private float stopTime;
-    private bool isFirstRun;
+    private bool isFirstRun = true;
     private float initialTime;
     public float stopDuration = 5.0f;
 
@@ -117,6 +122,7 @@ public class ButtonClick : MonoBehaviour
             if (!isStopped)
             {
                 isStopped = true;
+                right = true;
                 stopTime = Time.time;
             }
             else
@@ -124,6 +130,14 @@ public class ButtonClick : MonoBehaviour
                 // If it has been in the zone for the specified duration, trigger your event
                 if (Time.time - stopTime >= stopDuration)
                 {
+                    if (right)
+                    {
+                        if (greenLight != null)
+                        {
+                            greenLight.SetActive(true);
+                            redLight.SetActive(false);
+                        }
+                    }
                     // Add your event code here
                     Debug.Log("Object has stopped for 5 seconds.");
                 }

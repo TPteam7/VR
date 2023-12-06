@@ -18,8 +18,11 @@ public class CloseDoor : MonoBehaviour
             isFirstRun = false;
             Debug.Log("If statement ran");
 
-            rightDoor.transform.Rotate(0.0f, -90.0f, 0.0f, Space.Self);
-            leftDoor.transform.Rotate(0.0f, 90.0f, 0.0f, Space.Self);
+            for (int i = 0; i < 90; i++)
+            {
+                rightDoor.transform.Rotate(0.0f, -1.0f, 0.0f, Space.Self);
+                leftDoor.transform.Rotate(0.0f, 1.0f, 0.0f, Space.Self);
+            }
             Debug.Log("Doors have closed.");
         }
     }
