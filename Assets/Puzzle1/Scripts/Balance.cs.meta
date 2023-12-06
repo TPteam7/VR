@@ -4,7 +4,9 @@ MonoImporter:
   externalObjects: {}
   serializedVersion: 2
   defaultReferences:
-  - canvasText: {fileID: 4555348924870797545, guid: f61ff4b78c3eae54c9f84438279dca7a, type: 3}
+  - InstructionMaterial: {fileID: 2100000, guid: cde2bf295cfafa84984418159eb2515d, type: 2}
+  - DoneMaterial: {fileID: 2100000, guid: 5df30b4069100514b94b1629ca606733, type: 2}
+  - board: {fileID: 4562595699293715586, guid: ccda9be9e7095964f82571f710e95f2b, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

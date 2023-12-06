@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
+
 
 public class Balance : MonoBehaviour
 {
@@ -26,6 +26,7 @@ public class Balance : MonoBehaviour
         isRotating = false;
         slow = false;
         collided = false;
+        balance = false;
 
     }
 
@@ -49,11 +50,6 @@ public class Balance : MonoBehaviour
             SlowDown();
             //Debug.Log("Slowing Down");
         }
-        // Check if 6 seconds have passed and stop everything
-        if (collidedTime >= 3.0f)
-        {
-            CheckBalance();
-        }
     }
 
     private void FreezeObjectsWithTag(string tag)
@@ -70,16 +66,12 @@ public class Balance : MonoBehaviour
                 rb.constraints = RigidbodyConstraints.FreezeRotationZ;
                 rb.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezePositionZ |
                     RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
-
-
-                // Reset the rotation to (0, 0, 0)
-                //obj.transform.rotation = Quaternion.identity;
             }
         }
     }
 
 
-        private void SlowDown()
+    private void SlowDown()
     {
         // Calculate the current Z rotation of the object
         float currentZRotation = transform.eulerAngles.z;
@@ -102,15 +94,8 @@ public class Balance : MonoBehaviour
         }
     }
 
-    private void CheckBalance()
-    {
-        float zRotation = transform.eulerAngles.z;
 
-        if (zRotation == 0)
-        {
-            balance = true; 
-        }
-    }
+    
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -120,6 +105,7 @@ public class Balance : MonoBehaviour
         {
             
             isRotating = true;
+            balance = true;
         }
     }
 }
