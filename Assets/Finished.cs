@@ -8,6 +8,7 @@ public class Finished : MonoBehaviour
     public GameObject greenLight2;
     public GameObject rightDoor;
     public GameObject leftDoor;
+    public AudioSource audioData;
     private bool ranOnce = false;
     // Start is called before the first frame update
     void Start()
@@ -21,11 +22,11 @@ public class Finished : MonoBehaviour
         if (greenLight1.activeSelf && greenLight2.activeSelf && !ranOnce)
         {
             ranOnce = true;
-            for (int i = 0; i < 90; i++)
-            {
-                rightDoor.transform.Rotate(0.0f, 1.0f, 0.0f, Space.Self);
-                leftDoor.transform.Rotate(0.0f, -1.0f, 0.0f, Space.Self);
-            }
+
+            rightDoor.transform.Rotate(0.0f, 90.0f, 0.0f, Space.Self);
+            leftDoor.transform.Rotate(0.0f, -90.0f, 0.0f, Space.Self);
+            audioData = GetComponent<AudioSource>();
+            audioData.Play(0);
         }
     }
 }
