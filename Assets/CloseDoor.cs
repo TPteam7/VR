@@ -8,6 +8,7 @@ public class CloseDoor : MonoBehaviour
     private bool isFirstRun = true;
     public GameObject rightDoor;
     public GameObject leftDoor;
+    public AudioSource audioData;
 
     // Update is called once per frame
     void Update()
@@ -24,6 +25,10 @@ public class CloseDoor : MonoBehaviour
                 leftDoor.transform.Rotate(0.0f, 1.0f, 0.0f, Space.Self);
             }
             Debug.Log("Doors have closed.");
+            audioData = GetComponent<AudioSource>();
+            audioData.Play(0);
+            audioData.time = 4.0f;
+
         }
     }
 }

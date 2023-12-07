@@ -18,6 +18,7 @@ public class ButtonClick : MonoBehaviour
 
     public void SetTypeFromIndex()
     {
+        //Add the slider force to the rigidbody
         rb = GetComponent<Rigidbody>();
         rb.AddForce(Vector3.left * slider.value, ForceMode.Impulse);
         initialPosition = rb.position;
@@ -105,9 +106,11 @@ public class ButtonClick : MonoBehaviour
     private bool isFirstRun = true;
     private float initialTime;
     public float stopDuration = 5.0f;
+    private bool correct = false;
 
     void Update()
     {
+        
         //Get initial time
         if (isFirstRun)
         {
@@ -115,47 +118,26 @@ public class ButtonClick : MonoBehaviour
             initialTime = Time.time;
         }
 
-        // Check if the object is within the trigger zone
-        if (Target.bounds.Contains(transform.position))
+        //If ball has a velocity of less than .01 and is in the target bounds then correct velocity
+        if (rb.velocity.magnitude < 0.01f && Target.bounds.Contains(transform.position))
         {
-            // If it's in the zone, start or continue timing
-            if (!isStopped)
+            if (greenLight != null)
             {
-                isStopped = true;
-                right = true;
-                stopTime = Time.time;
+                greenLight.SetActive(true);
+                redLight.SetActive(false);
             }
-            else
-            {
-                // If it has been in the zone for the specified duration, trigger your event
-                if (Time.time - stopTime >= stopDuration)
-                {
-                    if (right)
-                    {
-                        if (greenLight != null)
-                        {
-                            greenLight.SetActive(true);
-                            redLight.SetActive(false);
-                        }
-                    }
-                    // Add your event code here
-                    Debug.Log("Object has stopped for 5 seconds.");
-                }
-            }
+            button.interactable = false;
+            correct = true;
         }
-        else
+        //Else if 10 seconds, velocity is less than .01, and not in zone
+        //  then set velocity to 0, rb.position to initial start, make first run true, and button true
+        else if (Time.time - initialTime >= 10.0f && rb.velocity.magnitude < 0.01f && !correct)
         {
-            // If it's not in the zone, reset the timing
-            isStopped = false;
-            // If been running for 15 seconds then go back to initial position
-            if (Time.time - initialTime >= 10.0f)
-            {
-                isFirstRun = true;
-                rb.velocity = Vector3.zero;
-                rb.position = initialPosition;
-                button.interactable = true;
-                Debug.Log("Reset position of snowball");
-            }
+            rb.velocity = Vector3.zero;
+            rb.position = initialPosition;
+            isFirstRun = true;
+            button.interactable = true;
         }
+        
     }
 }
