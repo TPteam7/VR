@@ -6098,11 +6098,13 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'This game was made by XXX in 7 days for the VR Jam 2023.
+  m_text: 'This game was made by Micheal Callahan, Trevor Pope, and Duc Vo.
 
 
-    Special
-    shoutout to my mom for always believing in me and to my pet penguin alfred. '
+    The
+    goal of the game is to escape the room. To do this, the user must learn some
+    static equillibrium principles and use these principles to solve different problems.
+    If the user solves the problems, they will escape.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5b036e831c0c90547b32a8a896d80f79, type: 2}
   m_sharedMaterial: {fileID: 6988543560108305873, guid: cb4516ac98eb5854ea4d7a8f558eb4da, type: 2}
